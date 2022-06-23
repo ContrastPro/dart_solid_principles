@@ -1,50 +1,88 @@
-void main() {
-  const _Auto auto = _Auto(
-    model: _AutoModel.tesla,
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+Future<void> main() async {
+  final BaseRepository baseRepository = BaseRepository();
+
+  final AirlinesRepository airlinesRepository = AirlinesRepository(
+    repository: baseRepository,
+  );
+  final PassengerRepository passengerRepository = PassengerRepository(
+    repository: baseRepository,
   );
 
-  const _CustomerAuto customerAuto = _CustomerAuto(
-    auto: auto,
-  );
+  final String? airlines = await airlinesRepository.getAirlinesId(id: 1);
+  final String? passenger = await passengerRepository.getPassengerId(id: 1);
 
-  final String model = auto.getCarModel();
-  customerAuto.saveCustomerOrder();
-
-  print(model);
+  print('\nAirlines data: $airlines');
+  print('\nPassenger data: $passenger');
 }
 
-enum _AutoModel { tesla, audi }
+class BaseRepository {
+  BaseRepository() {
+    api = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        validateStatus: (_) => true,
+      ),
+    );
 
-class _Auto {
-  const _Auto({
-    required this.model,
-  });
-
-  final _AutoModel model;
-
-  String getCarModel() {
-    return model.name;
+    api.interceptors.addAll([
+      PrettyDioLogger(
+        requestBody: true,
+      ),
+    ]);
   }
 
-  void setCarModel() {}
+  static const String baseUrl = 'https://api.instantwebtools.net/v1';
+
+  late final Dio api;
 }
 
-class _CustomerAuto {
-  const _CustomerAuto({
-    required this.auto,
-  });
+class AirlinesRepository {
+  AirlinesRepository({
+    required this.repository,
+  }) : _api = repository.api;
 
-  final _Auto auto;
+  final BaseRepository repository;
+  final Dio _api;
 
-  void saveCustomerOrder() {}
+  Future<String?> getAirlinesId({
+    required int id,
+  }) async {
+    final Response response = await _api.get(
+      '/airlines/$id',
+    );
 
-  void getCustomerOrder() {}
+    if (response.statusCode == 200) {
+      return jsonEncode(response.data);
+    }
 
-  void removeCustomerOrder() {}
+    return null;
+  }
 }
 
-class _AutoDB {
-  const _AutoDB();
+class PassengerRepository {
+  PassengerRepository({
+    required this.repository,
+  }) : _api = repository.api;
 
-  void updateCarSet() {}
+  final BaseRepository repository;
+  final Dio _api;
+
+  Future<String?> getPassengerId({
+    required int id,
+  }) async {
+    final Response response = await _api.get(
+      '/passenger/$id',
+    );
+
+    if (response.statusCode == 200) {
+      return jsonEncode(response.data);
+    }
+
+    return null;
+  }
 }
