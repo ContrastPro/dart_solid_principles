@@ -1,5 +1,5 @@
 void main() {
-  const _Auto auto = _Auto(
+  const Auto auto = Auto(
     model: _AutoModel.audi,
   );
 
@@ -11,7 +11,7 @@ void main() {
   print(color);
 }
 
-String _getPrice(_Auto auto) {
+String _getPrice(Auto auto) {
   String price = 'No Auto Price';
 
   switch (auto.model) {
@@ -26,7 +26,7 @@ String _getPrice(_Auto auto) {
   return 'Price: $price';
 }
 
-String _getColor(_Auto auto) {
+String _getColor(Auto auto) {
   String color = 'Black';
 
   switch (auto.model) {
@@ -43,8 +43,8 @@ String _getColor(_Auto auto) {
 
 enum _AutoModel { tesla, audi }
 
-class _Auto {
-  const _Auto({
+class Auto {
+  const Auto({
     required this.model,
   });
 

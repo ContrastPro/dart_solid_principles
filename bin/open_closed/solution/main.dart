@@ -1,6 +1,6 @@
 void main() {
-  //const _Tesla auto = _Tesla();
-  const _Audi auto = _Audi();
+  //const Tesla auto = Tesla();
+  const Audi auto = Audi();
 
   final String price = _getPrice(auto);
   final String color = _getColor(auto);
@@ -10,7 +10,7 @@ void main() {
   print(color);
 }
 
-String _getPrice(_CarPrice carPrice) {
+String _getPrice(CarPrice carPrice) {
   final String price = carPrice.getPrice();
   return 'Price: $price';
 }
@@ -22,7 +22,7 @@ String _getColor(_CarColor carColor) {
 
 enum _AutoModel { tesla, audi }
 
-abstract class _CarPrice {
+abstract class CarPrice {
   String getPrice();
 }
 
@@ -30,8 +30,8 @@ abstract class _CarColor {
   String getColor();
 }
 
-class _Tesla implements _CarPrice, _CarColor {
-  const _Tesla();
+class Tesla implements CarPrice, _CarColor {
+  const Tesla();
 
   @override
   String getPrice() {
@@ -48,8 +48,8 @@ class _Tesla implements _CarPrice, _CarColor {
   }
 }
 
-class _Audi implements _CarPrice, _CarColor {
-  const _Audi();
+class Audi implements CarPrice, _CarColor {
+  const Audi();
 
   @override
   String getPrice() {
