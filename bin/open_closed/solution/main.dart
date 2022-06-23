@@ -11,11 +11,13 @@ void main() {
 }
 
 String _getPrice(_CarPrice carPrice) {
-  return carPrice.getPrice();
+  final String price = carPrice.getPrice();
+  return 'Price: $price';
 }
 
 String _getColor(_CarColor carColor) {
-  return carColor.getColor();
+  final String color = carColor.getColor();
+  return 'Color: $color';
 }
 
 enum _AutoModel { tesla, audi }
@@ -42,7 +44,7 @@ class _Tesla implements _CarPrice, _CarColor {
   }
 
   String getCarModel() {
-    return _AutoModel.tesla.name;
+    return 'Car model: ${_AutoModel.tesla.name}';
   }
 }
 
@@ -60,6 +62,6 @@ class _Audi implements _CarPrice, _CarColor {
   }
 
   String getCarModel() {
-    return _AutoModel.audi.name;
+    return 'Car model: ${_AutoModel.audi.name}';
   }
 }

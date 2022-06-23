@@ -23,7 +23,7 @@ String _getPrice(_Auto auto) {
       break;
   }
 
-  return price;
+  return 'Price: $price';
 }
 
 String _getColor(_Auto auto) {
@@ -38,7 +38,7 @@ String _getColor(_Auto auto) {
       break;
   }
 
-  return color;
+  return 'Color: $color';
 }
 
 enum _AutoModel { tesla, audi }
@@ -51,6 +51,6 @@ class _Auto {
   final _AutoModel model;
 
   String getCarModel() {
-    return model.name;
+    return 'Car model: ${model.name}';
   }
 }
