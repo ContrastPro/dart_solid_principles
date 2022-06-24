@@ -11,6 +11,20 @@ void main() {
   print(color);
 }
 
+enum _AutoModel { tesla, audi }
+
+class Auto {
+  const Auto({
+    required this.model,
+  });
+
+  final _AutoModel model;
+
+  String getCarModel() {
+    return 'Car model: ${model.name}';
+  }
+}
+
 String _getPrice(Auto auto) {
   String price = 'No Auto Price';
 
@@ -39,18 +53,4 @@ String _getColor(Auto auto) {
   }
 
   return 'Color: $color';
-}
-
-enum _AutoModel { tesla, audi }
-
-class Auto {
-  const Auto({
-    required this.model,
-  });
-
-  final _AutoModel model;
-
-  String getCarModel() {
-    return 'Car model: ${model.name}';
-  }
 }
