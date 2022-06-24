@@ -1,12 +1,32 @@
 Future<void> main() async {
-  const ShazamApi shazamApi = ShazamApi();
-  final String? responseShazam = await shazamApi.load();
+  const MusicApi musicApi = MusicApi();
+  final String? response = await musicApi.searchTracks();
+}
 
-  const SoundHoundApi soundHoundApi = SoundHoundApi();
-  final String? responseSoundHound = await soundHoundApi.searchTracks();
+class MusicApi {
+  const MusicApi();
 
-  const GoogleMusicApi googleApi = GoogleMusicApi();
-  final String? responseGoogle = await googleApi.get();
+  Future<String?> searchTracks() async {
+    const ShazamApi shazamApi = ShazamApi();
+    const SoundHoundApi soundHoundApi = SoundHoundApi();
+    const GoogleMusicApi googleApi = GoogleMusicApi();
+
+    final String? responseShazam = await shazamApi.load();
+
+    if (responseShazam != null) {
+      return responseShazam;
+    }
+
+    final String? responseSoundHound = await soundHoundApi.searchTracks();
+
+    if (responseShazam != null) {
+      return responseSoundHound;
+    }
+
+    final String? responseGoogle = await googleApi.get();
+
+    return responseGoogle;
+  }
 }
 
 class ShazamApi {
